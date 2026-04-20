@@ -2,12 +2,14 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from itertools import combinations
+from pathlib import Path
 import time
 from typing import Iterable
 
 import chess
 
 from .base_agent import ChessAgent
+from .mcts_agent import MCTSAgent
 from .minimax_agent import MinimaxAgent
 from .random_agent import RandomAgent
 
@@ -331,8 +333,15 @@ def main() -> None:
     agents: list[ChessAgent] = [
         MinimaxAgent(depth=2),
         MinimaxAgent(depth=3),
+        MCTSAgent(simulations=80, rollout_depth=18, seed=7),
         RandomAgent(seed=42),
     ]
+
+    checkpoint = Path("value_net.pt")
+    if checkpoint.exists():
+        from .rl_value_agent import RLMCTSAgent
+
+        agents.append(RLMCTSAgent(checkpoint=checkpoint, simulations=80, rollout_depth=18, seed=23))
 
     results, scores = run_round_robin(agents, games_per_pair=2)
 
