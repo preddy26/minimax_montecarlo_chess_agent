@@ -23,3 +23,5 @@ Install the required dependencies, then run:
 `python -m chess_agents.competition`
 
 If `value_net.pt` is available, the RL-guided MCTS agent is included automatically.
+
+Slide Deck: https://docs.google.com/presentation/d/1UBn_cBoazg7TGVKhKZteSvORDssfuD_F/edit?usp=sharing&ouid=108810569903445050417&rtpof=true&sd=true
